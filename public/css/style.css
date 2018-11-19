@@ -1,0 +1,83 @@
+/*style css*/
+body {
+    font-family: "verdana";
+    font-size: 20px;
+}
+/*body {
+  font-size: 20px;
+}*/
+
+.gluten {
+  font-weight:bold;
+}
+
+#select {
+  color:#ffffff;
+  background-color: #000000;
+  margin-top: 10px;
+  border: 7px dotted #ffffff;
+}
+#info {
+  padding-left: 10px;
+  padding-bottom: 10px;
+  border:7px solid #000000;
+}
+button:hover {
+  color:blue;
+  cursor: pointer;
+}
+table {
+  width: 90%
+}
+.header {
+  margin-top:50px;
+  border: 7px;
+  position: absolute;
+  text-align: center;
+}
+.foot {
+  margin-top: 50px;
+  font-size: 13px;
+}
+#headpic {
+  opacity: 0.5;
+}
+.container{
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.grid-table{
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 33% 33% 33%;
+}
+.burgerA{
+  grid-column: 1;
+}
+.burgerB{
+  grid-column: 2;
+}
+.burgerC{
+  grid-column: 3;
+}
+.list{
+  text-align: left;
+}
+.burger1{
+  height:100px;
+}
+.orderList{
+  list-style: none;
+}
+#orderTitle{
+  font-size: 30px;
+}
+.contains{
+  font-weight: bold;
+  color: red;
+}
+.contains2{
+  font-weight: bold;
+  color: blue;
+}

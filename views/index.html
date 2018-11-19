@@ -1,9 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>DELI-VERY</title>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <script src="js/js_script.js" defer></script>
+      <script src="https://vuejs.org/js/vue.js" defer></script>
+      <script src="js/vue_script.js" defer></script>
+      <link rel="stylesheet" href="css/deli-very.css">
+      <script src="/socket.io/socket.io.js" defer></script>
+      <script src="js/deli-very.js" defer></script>
+      <script src="/vue/vue.js" defer></script>
+
+        <title>Burgers for the People</title>
+        <meta charset="utf-8"/>
     </head>
-    <body>
-        <h1>Hello World!!!</h1>
-    </body>
+
+<body>
+  <div id="vue-container">
+  <main class="container">
+    <h1 class="header">Welcome to Burgers<br> for the People</h1>
+    <img id="headpic" align="top" src="https://club19pembrokelakes.com/wp-content/uploads/thanksgiving-menu-header-club19.jpg">
+  </main>
+
+  <section id="select" align="center">
+    <h3>Select burger</h3>
+      <div>Here you can select what burger you prefer</div><br>
+      <div class="grid-table">
+        <div class = "burgerA">
+          <h3> The Swede</h3>
+          <img src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2016/08/16/15/avocado-burger-buns.jpg?width=1000&height=614&fit=bounds&format=pjpg&auto=webp&quality=70&crop=16:9,offset-y0.5" height=200>
+          <ul class="list">
+            <li><span class="gluten">Gluten free</span></li>
+            <li>Vegan friendly</li>
+            <li>For the true Swede</li>
+        </ul>
+        </div>
+        <div class = "burgerB">
+          <h3> The Frenchie</h3>
+          <img src="http://www.sasa-food.ro/wp-content/uploads/2018/01/porc.png" height=200>
+          <ul class="list">
+            <li><span class="gluten">Gluten</span></li>
+            <li>For fishlover</li>
+            <li>For the true Frenchie</li>
+        </ul>
+        </div>
+        <div class = "burgerC">
+          <h3> The American</h3>
+          <img src="https://u.tfstatic.com/restaurant_photos/871/359871/169/612/brutal-burgers-mat-c6581.jpg" height=200>
+          <ul class="list">
+            <li>White bread</li>
+            <li>Cooked turkey</li>
+            <li>For the true American</li>
+          </ul>
+        </div>
+      </div>
+
+    <!--<table>
+      <thead>
+        <tr>
+            <th class="burger">The Swede</th>
+            <th class="burger">The Frenchie</th>
+            <th class="burger">The American</th>
+        </tr>
+      </thead>
+    <!--<h4>The Swede</h4>-->
+    <!--<tbody>
+      <tr>
+          <td><img src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2016/08/16/15/avocado-burger-buns.jpg?width=1000&height=614&fit=bounds&format=pjpg&auto=webp&quality=70&crop=16:9,offset-y0.5" width=250></td>
+          <td><img src="http://www.sasa-food.ro/wp-content/uploads/2018/01/porc.png" width=250></td>
+          <td><img src="https://u.tfstatic.com/restaurant_photos/871/359871/169/612/brutal-burgers-mat-c6581.jpg" width=250></td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <ul>
+            <li><span class="gluten">Gluten free</span></li>
+            <li>Vegan friendly</li>
+            <li>For the true Swede</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li><span class="gluten">Gluten</span></li>
+          <li>For fishlover</li>
+          <li>For the true Frenchie</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>White bread</li>
+        <li>Cooked turkey</li>
+        <li>For the true American</li>
+      </ul>
+    </td>
+  </tr>
+    </tbody>
+  </table>-->
+  </section>
+  <div id="orderTitle"> {{ burgerText }} </div>
+  <section id="orderSection">
+    <ul class="orderList">
+    <li v-for="burger in burgers">
+    <br>{{ burger.name }}<br><img :src="burger.img" class="burger1"><br> {{ burger.price }}, {{ burger.cal }}
+    <p class='contains' v-if="burger.gl">Innehåller gluten</p>
+    <p class='contains2' v-if="burger.veg">Vegetarisk</p>
+    <input type="checkbox" id="chbx" :value="burger.name" v-model="checkedBurgers" />
+    <label for="burger.name">Select {{burger.name}}</label>
+
+  </li>
+</ul>
+  <span> Your Order:<br> {{ checkedBurgers.join(', ') }}</span>
+</section>
+
+  <section id="info">
+    <h3>Customer information</h3>
+      <p>This is where you provide us with your information</p>
+      <p>
+        <label for="firstname">Full name</label><br>
+        <input type="text" id="firstname" name="fn" required="required" placeholder="First and Last name" v-model="customerName">
+      </p>
+      <p>
+        <label for="email">E-mail</label><br>
+        <input type="email" id="email" name="em" required="required" placeholder="E-mail address" v-model="email">
+      </p>
+      <p>
+        <label for="streetname">Street</label><br>
+        <input type="text" id="streetname" name="sn" required="required" placeholder="Street name" v-model="street">
+      </p>
+      <p>
+        <label for="house">House</label><br>
+        <input type="number" id="house" name="hn" required="required" placeholder="House number" v-model="house_no">
+      </p>
+      <p>
+        <label for="payment">Payment method</label><br>
+          <select id="payment" name="pm" v-model="paymethod">
+            <option>Visa</option>
+            <option selected="selected">Mastercard</option>
+            <option>American Express</option>
+            <option>Cash</option>
+          </select>
+      </p>
+
+      <form action="">
+        <h5>
+          <label for="gender">Gender</label></h5>
+        <input type="radio" name="gender" value="male" v-model="gender" checked="checked"> Male<br>
+        <input type="radio" name="gender" value="female" v-model="gender"> Female<br>
+        <input type="radio" name="gender" value="other" v-model="gender"> Other
+      </form>
+      <!--<input type="submit" value="Send">-->
+      <br><button v-on:click="ordered()" type="submit"><img src="https://kult.design/wp-content/uploads/2017/10/bil.png" width=30> Place my order</button>
+      <p v-show='orderPlaced'> Your order was successfully received: <br>{{ placeOrder() }}</p>
+  </section>
+  <!--{{ message }} <button v-on:click="changeText()">Change text</button>-->
+
+</div>
+</body>
+<footer class="foot">
+  <p><br>Burgers for the People CO<p>
+</footer>
 </html>
