@@ -26,7 +26,7 @@ Create an index.html file which contains:
 	- [x] House Number (only allowing numbers in this field)
 	- [x] Gender (male, female, do not wish to provide as radio buttons)
 - [x] A button to place the order
-- [ ] Ensure the website loads when opening http://localhost:3000/
+- [x] Ensure the website loads when opening http://localhost:3000/
 
 ## 03 CSS
 
@@ -63,11 +63,11 @@ Create a vue_script.js file which contains:
 
 ## 05 Messaging
 
-- [ ] Exchange the field for the customer's address with the interactive map
+- [x] Exchange the field for the customer's address with the interactive map
 - [ ] Location information from the map should be send to the dispatcher view when pressing the "order" button
 - [ ] In the dispatcher view, you should see the following for every order:
-    - [ ] A location on the map
-    - [ ] The order information
+    - [x] A location on the map
+    - [x] The order information
     - [ ] The customer information
 
 ## Optional

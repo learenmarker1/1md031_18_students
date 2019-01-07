@@ -46,8 +46,9 @@ table {
   position: relative;
   height: 200px;
   overflow: hidden;
+  text-align: center;
 }
-.grid-table{
+/* .grid-table{
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 33% 33% 33%;
@@ -60,18 +61,24 @@ table {
 }
 .burgerC{
   grid-column: 3;
-}
+} */
 .list{
   text-align: left;
 }
 .burger1{
-  height:100px;
+  height:200px;
 }
 .orderList{
   list-style: none;
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: auto auto auto auto;
+  justify-content: space-evenly;
 }
 #orderTitle{
   font-size: 30px;
+  text-align: center;
 }
 .contains{
   font-weight: bold;
@@ -80,4 +87,7 @@ table {
 .contains2{
   font-weight: bold;
   color: blue;
+}
+.burgerFont{
+  font-weight: bold;
 }

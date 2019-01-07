@@ -7,7 +7,7 @@ var socket = io();
 var vm = new Vue({
   el: '#vue-container',
   data: {
-
+    orders: {},
     message: "hejhejhej",
     burgerText: "Choose your burger below:",
     burgers: [
@@ -51,10 +51,12 @@ var vm = new Vue({
     gender: [],
     customerName: [],
     email: [],
-    street: [],
-    house_no: [],
+    /*street: [],
+    house_no: [],*/
     paymethod: [],
+    location:{x:0, y:0},
     orderPlaced: false,
+    orderNo: 0,
   },
   created: function () {
     socket.on('initialize', function (data) {
@@ -67,21 +69,50 @@ var vm = new Vue({
   },
   methods: {
 
-    /* getNext: function () {
+    getNext: function () {
       var lastOrder = Object.keys(this.orders).reduce(function (last, next) {
         return Math.max(last, next);
       }, 0);
-      return lastOrder + 1;
+      // return lastOrder + 1;
+      return "T";
     },
+    getNextDisp: function () {
+      var orderNo = orderNo+1
+      return orderNo;
+    },
+    setLocation: function (ev) {
+      var offset = {x: ev.currentTarget.getBoundingClientRect().left,
+                    y: ev.currentTarget.getBoundingClientRect().top};
+       this.location.x = ev.clientX - 10 - offset.x;
+       this.location.y = ev.clientY - 10 - offset.y;
+    },
+    // displayOrder: function () {
+    //   var lastOrder = Object.keys(this.orders).reduce(function (last, next) {
+    //     return Math.max(last, next);
+    //   }, 0);
+    //   /*return lastOrder + 1;*/
+    //   return "T";
+    // },
+    // addOrder: function (event) {
+    //   var offset = {x: event.currentTarget.getBoundingClientRect().left,
+    //                 y: event.currentTarget.getBoundingClientRect().top};
+    //   socket.emit("addOrder", { orderId: this.getNext(),
+    //                             details: { x: event.clientX - 10 - offset.x,
+    //                                        y: event.clientY - 10 - offset.y },
+    //                             orderItems: [this.checkedBurgers]
+    //                           });
+    // },
     addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
+      var sendBurger = " "+ this.checkedBurgers;
+      var sendCustomer = " " + this.customerName + ", " + this.email;
+      var locX = this.location.x;
+      var locY = this.location.y;
       socket.emit("addOrder", { orderId: this.getNext(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
+                                details: { x: locX,
+                                           y: locY },
+                                orderItems: [sendBurger, sendCustomer]
                               });
-    }*/
+    },
     changeText: function(){
       if (this.message === "changed"){
         this.message = "YEY"
@@ -95,9 +126,11 @@ var vm = new Vue({
       "Gender": ' ' +this.gender,
       "Name": ' ' +this.customerName,
       "E-mail": ' ' +this.email,
-      "Street": ' ' +this.street,
-      "House": ' ' +this.house_no,
+      /*"Street": ' ' +this.street,
+      "House": ' ' +this.house_no,*/
       "Payment": ' ' +this.paymethod,
+      "locationX": ' ' +this.location.x,
+      "locationY": ' ' +this.location.y,
       /*this.checkedBurgers,
       this.gender,
       this.customerName,
@@ -111,4 +144,5 @@ var vm = new Vue({
   ordered (){
     this.orderPlaced = !this.orderPlaced;
   },
+
 }});

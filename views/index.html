@@ -4,11 +4,13 @@
       <link rel="stylesheet" type="text/css" href="css/style.css">
       <script src="js/js_script.js" defer></script>
       <script src="https://vuejs.org/js/vue.js" defer></script>
-      <script src="js/vue_script.js" defer></script>
+      <!--<script src="js/vue_script.js" defer></script>-->
       <link rel="stylesheet" href="css/deli-very.css">
+      <script src="/vue/vue.js" defer></script>
+      <!--<script src="app.js" defer></script>-->
       <script src="/socket.io/socket.io.js" defer></script>
       <script src="js/deli-very.js" defer></script>
-      <script src="/vue/vue.js" defer></script>
+
 
         <title>Burgers for the People</title>
         <meta charset="utf-8"/>
@@ -24,7 +26,7 @@
   <section id="select" align="center">
     <h3>Select burger</h3>
       <div>Here you can select what burger you prefer</div><br>
-      <div class="grid-table">
+      <!-- <div class="grid-table">
         <div class = "burgerA">
           <h3> The Swede</h3>
           <img src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2016/08/16/15/avocado-burger-buns.jpg?width=1000&height=614&fit=bounds&format=pjpg&auto=webp&quality=70&crop=16:9,offset-y0.5" height=200>
@@ -52,7 +54,7 @@
             <li>For the true American</li>
           </ul>
         </div>
-      </div>
+      </div> -->
 
     <!--<table>
       <thead>
@@ -95,12 +97,12 @@
   </tr>
     </tbody>
   </table>-->
-  </section>
+
   <div id="orderTitle"> {{ burgerText }} </div>
-  <section id="orderSection">
+  <section id="orderSection" align='center'>
     <ul class="orderList">
     <li v-for="burger in burgers">
-    <br>{{ burger.name }}<br><img :src="burger.img" class="burger1"><br> {{ burger.price }}, {{ burger.cal }}
+    <br><h2>{{ burger.name }}</h2><br><img :src="burger.img" class="burger1"><br> {{ burger.price }}, {{ burger.cal }}
     <p class='contains' v-if="burger.gl">Innehåller gluten</p>
     <p class='contains2' v-if="burger.veg">Vegetarisk</p>
     <input type="checkbox" id="chbx" :value="burger.name" v-model="checkedBurgers" />
@@ -108,6 +110,7 @@
 
   </li>
 </ul>
+</section>
   <span> Your Order:<br> {{ checkedBurgers.join(', ') }}</span>
 </section>
 
@@ -122,14 +125,14 @@
         <label for="email">E-mail</label><br>
         <input type="email" id="email" name="em" required="required" placeholder="E-mail address" v-model="email">
       </p>
-      <p>
+      <!--<p>
         <label for="streetname">Street</label><br>
         <input type="text" id="streetname" name="sn" required="required" placeholder="Street name" v-model="street">
       </p>
       <p>
         <label for="house">House</label><br>
         <input type="number" id="house" name="hn" required="required" placeholder="House number" v-model="house_no">
-      </p>
+      </p>-->
       <p>
         <label for="payment">Payment method</label><br>
           <select id="payment" name="pm" v-model="paymethod">
@@ -140,6 +143,22 @@
           </select>
       </p>
 
+      <p> Show us where you live ;) </p>
+      <a href="/dispatcher" target="_blank">Open dispatcher in new window</a>.
+      <div class="view-box">
+        <div id="dots" v-on:click="setLocation">
+            <!-- <div
+              v-for="(order, key) in orders"
+              v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}">
+              {{key}}
+            </div> -->
+            <div
+            v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
+            T
+          </div>
+        </div>
+      </div>
+
       <form action="">
         <h5>
           <label for="gender">Gender</label></h5>
@@ -148,13 +167,28 @@
         <input type="radio" name="gender" value="other" v-model="gender"> Other
       </form>
       <!--<input type="submit" value="Send">-->
-      <br><button v-on:click="ordered()" type="submit"><img src="https://kult.design/wp-content/uploads/2017/10/bil.png" width=30> Place my order</button>
-      <p v-show='orderPlaced'> Your order was successfully received: <br>{{ placeOrder() }}</p>
+
+      <!--<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>DELI-VERY MAP</title>
+        <link rel="stylesheet" href="css/deli-very.css">
+        <script src="/vue/vue.js" defer></script>
+        <script src="/socket.io/socket.io.js" defer></script>
+        <script src="js/deli-very.js" defer></script>
+      </head>-->
+
+
+
+
+      <br><button v-on:click="addOrder(); ordered()" type="submit"><img src="https://kult.design/wp-content/uploads/2017/10/bil.png" width=30> Place my order</button>
+      <p v-show='orderPlaced'> Your order was successfully received: <br>"{{ placeOrder() }}"</p>
   </section>
   <!--{{ message }} <button v-on:click="changeText()">Change text</button>-->
 
 </div>
 </body>
+
 <footer class="foot">
   <p><br>Burgers for the People CO<p>
 </footer>
