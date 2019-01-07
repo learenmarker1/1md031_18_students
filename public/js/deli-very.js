@@ -77,8 +77,8 @@ var vm = new Vue({
       return "T";
     },
     getNextDisp: function () {
-      var orderNo = orderNo+1
-      return orderNo;
+      this.orderNo = this.orderNo+1
+      return this.orderNo;
     },
     setLocation: function (ev) {
       var offset = {x: ev.currentTarget.getBoundingClientRect().left,
@@ -107,7 +107,7 @@ var vm = new Vue({
       var sendCustomer = " " + this.customerName + ", " + this.email;
       var locX = this.location.x;
       var locY = this.location.y;
-      socket.emit("addOrder", { orderId: this.getNext(),
+      socket.emit("addOrder", { orderId: this.getNextDisp(),
                                 details: { x: locX,
                                            y: locY },
                                 orderItems: [sendBurger, sendCustomer]
